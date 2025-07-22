@@ -17,22 +17,31 @@
     <title>E-commerce Master</title>
   </head>
   <body>
-    <header>
-      <a href="/">
-        <img src="./assets/images/logo.svg" alt="E-commerce Master Logo" />
-      </a>
-      <nav>
-        <ul class="menu">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">Sobre</a></li>
-          <li><a href="#products">Produtos</a></li>
-          <li><a href="#faq">Perguntas Frequentes</a></li>
-          <li><a href="#contact">Fale Conosco</a></li>
-        </ul>
-      </nav>
-      <button>
-        <img src="./assets/images/cart.svg" alt="Carrinho de Compras" />
-      </button>
+    <header class="header">
+      <div class="header-content">
+        <div class="left-content">
+          <button class="hamburger">
+            <img src="./assets/images/icone_menu.svg" alt="Menu" />
+          </button>
+          <a class="logo" href="/">
+            <img src="./assets/images/logo.svg" alt="E-commerce Master Logo" />
+          </a>
+        </div>
+
+        <nav class="main-menu">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#products">Produtos</a></li>
+            <li><a href="#faq">Perguntas Frequentes</a></li>
+            <li><a href="#contact">Fale Conosco</a></li>
+          </ul>
+        </nav>
+        <button class="cart-button" aria-label="Carrinho de Compras" data-micromodal-trigger="modal-1">
+          <img src="./assets/images/icone_carrinho.svg" alt="Carrinho de Compras" />
+          <span class="cart-counter">0</span>
+        </button>
+      </div>
     </header>
     <main>
       <section>

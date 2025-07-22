@@ -1,7 +1,20 @@
+/* Global styles */
+:root {
+  --font-family: "Roboto", sans-serif;
+  --dark-neutral-color: #111111;
+  --light-neutral-color: #ffffff;
+  --primary-color-hover: #834de8;
+  --primary-color: #6528d3;
+  --dark-gray-color: #29272a;
+  --light-gray-color: #ededed;
+  --light-purple-color: #bca2ed;
+  --font-size-base: 62.5%;
+}
+
 body {
-  font-family: "Roboto", sans-serif;
-  font-size: 62.5%;
-  background-color: #111111;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: var(--dark-neutral-color);
   color: #333333;
   min-height: 100vh;
   display: grid;
@@ -14,4 +27,126 @@ body {
 
 html {
   font-size: 1.6rem;
+}
+
+/* Header styles */
+.header {
+  grid-area: header;
+  padding: 1.875rem 0;
+}
+
+.header .main-menu {
+  display: none;
+  background-color: var(--dark-neutral-color);
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.header .main-menu ul {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.header ul li a {
+  color: var(--light-neutral-color);
+  text-decoration: none;
+  letter-spacing: 0.1rem;
+  padding: 1rem;
+}
+
+.header ul li a:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.header.active-menu .main-menu {
+  display: block;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hamburger {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: transparent;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3125rem;
+  cursor: pointer;
+}
+
+.cart-button {
+  background-color: transparent;
+  border: 0;
+  padding: 0.75rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-button .cart-counter {
+  color: var(--light-neutral-color);
+  background-color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.4rem;
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  padding: 0.4rem;
+  display: flex;
+  width: 16px;
+  height: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+@media (min-width: 940px) {
+  .hamburger {
+    display: none;
+  }
+
+  .header .main-menu {
+    display: block;
+    position: static;
+    width: auto;
+  }
+
+  .header .main-menu ul {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .header ul li {
+    text-align: center;
+}
+
+  .header ul li a {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .header {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
 }
