@@ -1,0 +1,17 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 62.5%;
+  background-color: #111111;
+  color: #333333;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+html {
+  font-size: 1.6rem;
+}
