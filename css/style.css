@@ -11,7 +11,6 @@
   --font-size-base: 62.5%;
 }
 
-
 html {
   font-size: var(--font-size-base);
 }
@@ -135,7 +134,7 @@ main .products h2 {
   color: var(--light-neutral-color);
   font-size: 3.8rem;
   font-weight: 400;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.16rem;
   margin-bottom: 3.2rem;
 }
 
@@ -143,7 +142,6 @@ main .products ul {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  
 }
 
 main .products .product {
@@ -168,7 +166,7 @@ main .product figcaption {
   padding: 1.5rem 1.5rem 1.2rem;
   font-size: 1.6rem;
   font-weight: bold;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.16rem;
 }
 
 main .product .product-details {
@@ -185,7 +183,7 @@ main .product-details span,
 main .product-details strong {
   color: var(--light-gray-color);
   font-size: 1.6rem;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.16rem;
 }
 
 main .product-details .price {
@@ -210,6 +208,56 @@ main .product-details .add-to-cart:hover {
   background-color: var(--primary-color-hover);
 }
 
+/* Footer */
+
+.footer {
+  grid-area: footer;
+  background-color: var(--dark-gray-color);
+}
+
+.footer .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+}
+
+.footer nav h3 {
+  color: var(--light-neutral-color);
+  font-size: 1.9rem;
+  letter-spacing: 0.16rem;
+  margin-bottom: 1.6rem;
+}
+
+.footer nav ul li {
+  margin-bottom: 1.12rem;
+}
+
+.footer nav ul li,
+.footer nav ul a {
+  color: var(--light-purple-color);
+  letter-spacing: 0.16rem;
+}
+
+.footer nav a {
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer nav a:hover {
+  color: var(--light-neutral-color);
+}
+
+.footer .copyright {
+  background-color: var(--dark-neutral-color);
+  color: var(--light-neutral-color);
+  font-size: 1.6rem;
+  letter-spacing: 0.16rem;
+  margin-top: 1.6rem;
+  text-align: center;
+  padding: 2.4rem;
+}
+
 /* Media Queries */
 
 /* Tablet */
@@ -218,7 +266,7 @@ main .product-details .add-to-cart:hover {
     margin: 0 auto;
   }
 
-main .products .product {
+  main .products .product {
     min-width: 368px;
   }
 
@@ -255,6 +303,21 @@ main .products .product {
 }
 
 /* Desktop */
+@media (min-width: 1024px) {
+  .footer .container {
+    flex-direction: row;
+    width: 100%;
+    gap: 20rem;
+    padding: 6.4rem 1.6rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .footer .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
 
 @media (min-width: 1170px) {
   .header {
@@ -275,6 +338,21 @@ main .products .product {
 
   main .products .product {
     width: 368px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  main .products ul {
+    gap: 4rem;
+  }
+
+  main .products .product {
+    width: calc(33.333% - 2.133rem);
   }
 }
 
