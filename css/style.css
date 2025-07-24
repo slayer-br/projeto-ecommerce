@@ -19,7 +19,6 @@ body {
   font-family: var(--font-family);
   font-size: 1.6rem;
   background-color: var(--dark-neutral-color);
-  color: #333333;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -33,6 +32,7 @@ body {
 .header {
   grid-area: header;
   padding: 3rem 0;
+  width: 100%;
 }
 
 .header .main-menu {
@@ -55,6 +55,7 @@ body {
 .header ul li a {
   color: var(--light-neutral-color);
   text-decoration: none;
+  font-size: 1.4rem;
   letter-spacing: 0.16rem;
   padding: 1.6rem;
 }
@@ -145,9 +146,12 @@ main .products ul {
 }
 
 main .products .product {
-  background-color: var(--dark-neutral-color);
   max-width: 368px;
   border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--dark-gray-color);
 }
 
 main .products .product img {
@@ -197,6 +201,8 @@ main .product-details .add-to-cart {
   background-color: var(--primary-color);
   color: var(--light-neutral-color);
   border: none;
+  font-size: 1.9rem;
+  letter-spacing: 0.16rem;
   border-radius: 0.8rem;
   padding: 1.6rem;
   cursor: pointer;
@@ -208,7 +214,7 @@ main .product-details .add-to-cart:hover {
   background-color: var(--primary-color-hover);
 }
 
-/* Footer */
+/* Footer styles */
 
 .footer {
   grid-area: footer;
@@ -258,7 +264,7 @@ main .product-details .add-to-cart:hover {
   padding: 2.4rem;
 }
 
-/* Modal */
+/* Modal styles */
 
 .modal {
   position: fixed;
@@ -386,7 +392,7 @@ td .remove-item {
   border: none;
   width: 100%;
   padding: 1.6rem;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   border-radius: 0.8rem;
   cursor: pointer;
   letter-spacing: 0.16rem;
@@ -490,14 +496,6 @@ td .remove-item {
     flex-direction: row;
     gap: 1.6rem;
   }
-
-  .header ul li {
-    text-align: center;
-  }
-
-  .header ul li a {
-    font-size: 1.4rem;
-  }
 }
 
 /* Desktop */
@@ -511,8 +509,21 @@ td .remove-item {
 }
 
 @media (min-width: 1100px) {
+  .header {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header .main-menu ul {
+    gap: 3.2rem;
+  }
+
+  .header .main-menu a {
+    font-size: 1.6rem;
+  }
+
   .footer .container {
-    width: 1170px;
+    width: 1100px;
     margin: 0 auto;
   }
 }
@@ -520,14 +531,6 @@ td .remove-item {
 @media (min-width: 1170px) {
   .header {
     max-width: 1170px;
-    margin: 0 auto;
-  }
-  .header .main-menu ul {
-    gap: 3.2rem;
-  }
-
-  .header .main-menu a {
-    font-size: 1.6rem;
   }
 
   main .products {
@@ -548,14 +551,10 @@ td .remove-item {
   main .products ul {
     gap: 4rem;
   }
-
-  main .products .product {
-    width: calc(33.333% - 2.133rem);
-  }
 }
 
 @media (min-width: 1440px) {
-  .header {
+  .header, .footer .container, main .products {
     max-width: 1440px;
     margin: 0 auto;
   }
