@@ -307,7 +307,7 @@ main .product-details .add-to-cart:hover {
 }
 
 .modal header .close-modal {
-  background-image: url(./assets/images/icone_fechar.svg);
+  background-image: url(../assets/images/icone_fechar.svg);
   width: 24px;
   height: 24px;
   background-color: transparent;
