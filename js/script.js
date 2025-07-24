@@ -38,6 +38,7 @@ btnAddToCart.forEach((button) => {
     }
 
     saveCartToLocalStorage(cart);
+    updateCartCount();
   });
 });
 
@@ -51,3 +52,18 @@ function getProductsFromCart() {
 function saveCartToLocalStorage(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
+
+function updateCartCount() {
+  const cart = getProductsFromCart();
+  let totalQuantity = 0;
+  
+  cart.forEach((product) => {
+    totalQuantity += product.quantity;
+  });
+
+  const cartCountElement = document.getElementById("cart-counter");
+  if (cartCountElement) {
+    cartCountElement.textContent = totalQuantity;
+  }
+}
+updateCartCount();
