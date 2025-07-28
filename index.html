@@ -100,8 +100,8 @@
           <h3>Endereço</h3>
           <ul>
             <li><a href="#">Rua Vale do Silício, 256</a></li>
-            <li>São Francisco, CA</li>
-            <li>Estados Unidos da América</li>
+            <li>São Paulo, SP</li>
+            <li>Brasil</li>
             <li><a href="#">(11) 98765-4321</a></li>
             <li><a href="#">vendas@masterecommerce.com</a></li>
           </ul>
@@ -111,7 +111,7 @@
         <p class="copyright">© 2025 E-commerce Master. Todos os direitos reservados.</p>
       </div>
     </footer>
-    <div class="modal open" id="modal-1" aria-hidden="true">
+    <div class="modal" id="modal-1" aria-hidden="true">
       <div tabindex="-1" data-micromodal-close>
         <div class="container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
           <header>
@@ -160,7 +160,24 @@
               </tbody>
             </table>
             <div class="total">
-              <span class="total-price" id="total-price">Total: R$ 0,00</span>
+              <div class="zip-code-shipping">
+                <label for="zip">Calcular frete:</label>
+                <div class="zip-code-shipping-inputs">
+                  <input type="text" id="zip" class="zip" placeholder="Digite sei CEP..." />
+                  <button id="calculate-shipping" class="calculate-shipping">Calcular frete</button>
+                </div>
+              </div>
+              <div class="total-price">
+                <span class="order-subtotal" id="order-subtotal"
+                  >Subtotal do pedido:
+                  <span class="value">R$ 0,00</span>
+                </span>
+                <span class="shipping-cost" id="shipping-cost"
+                  >Valor do frete:
+                  <span class="value">R$ 0,00</span>
+                </span>
+                <span class="total-cart" id="total-cart">Total: R$ 0,00</span>
+              </div>
               <button class="checkout" id="checkout">Finalizar Compra</button>
             </div>
           </div>
@@ -168,6 +185,7 @@
       </div>
     </div>
     <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <script src="./js/modal.js"></script>
     <script src="./js/script.js"></script>
   </body>
 </html>

@@ -1,19 +1,33 @@
+// Aguarda o carregamento completo do DOM (estrutura HTML) antes de executar o código
+document.addEventListener("DOMContentLoaded", () => {
+  /* Seleciona o botão de menu (hamburguer) e o header */
+  const btnMenu = document.querySelector(".hamburger");
+  const header = document.querySelector("header");
+
+  /* Abre e fecha o menu em telas tablets e mobiles */
+  if (btnMenu && header) {
+    btnMenu.addEventListener("click", () => {
+      header.classList.toggle("active-menu");
+    });
+  }
+});
+
 /* Seleciona os botões de adicionar ao carrinho */
 const btnAddToCart = document.querySelectorAll(".add-to-cart");
 
 /* Adiciona os eventos de clique aos botões */
 btnAddToCart.forEach((button) => {
   button.addEventListener("click", (event) => {
-    const elementProduct = event.target.closest(".product");
+    const elementProduct = event.target.closest(".product"); // Seleciona o elemento pai com a classe 'product'
 
-    const productId = elementProduct.dataset.id;
+    const productId = elementProduct.dataset.id; // Obtém o ID do produto via atributo data-id
 
-    const productName = elementProduct.querySelector(".name").textContent;
+    const productName = elementProduct.querySelector(".name").textContent; // Obtém o nome do produto
 
-    const productImage = elementProduct.querySelector("img").getAttribute("src");
+    const productImage = elementProduct.querySelector("img").getAttribute("src"); // Obtém a URL da imagem do produto
 
     const productPrice = parseFloat(
-      elementProduct.querySelector(".price").textContent.replace("R$ ", "").replace(".", "").replace(",", ".")
+      elementProduct.querySelector(".price").textContent.replace("R$ ", "").replace(".", "").replace(",", ".") // Converte o texto do preço para número
     );
 
     const product = {
@@ -24,7 +38,7 @@ btnAddToCart.forEach((button) => {
       quantity: 1,
     };
 
-    const cart = getProductsFromCart();
+    const cart = getProductsFromCart(); // recupera os produtos salvos no carrinho
 
     /* Verifica se o produto já existe no carrinho do localStorage */
     const existProductInCart = cart.find((item) => item.id === productId);
@@ -35,15 +49,15 @@ btnAddToCart.forEach((button) => {
       cart.push(product);
     }
 
-    saveCartToLocalStorage(cart);
-    updateCartAndTable();
+    saveCartToLocalStorage(cart); // Salva o carrinho no localStorage
+    updateCartAndTable(); // Atualiza contador, tabla e total do carrinho
   });
 });
 
 /* Função para obter os produtos do carrinho do localStorage */
 function getProductsFromCart() {
-  const products = localStorage.getItem("cart");
-  return products ? JSON.parse(products) : [];
+  const products = localStorage.getItem("cart"); // Acessa o conteúdo salvo no carrinho
+  return products ? JSON.parse(products) : []; // Converte para objeto ou retorna array vazio
 }
 
 /* Função para salvar os produtos no carrinho do localStorage */
@@ -100,14 +114,35 @@ function renderTableFromCart() {
 
 const tableBody = document.querySelector("#modal-1-content table tbody");
 
+if (tableBody) {
+  tableBody.addEventListener("click", (event) => {
+    if (event.target.classList.contains("remove-item")) {
+      const id = event.target.dataset.id;
+      removeProductToCart(id);
+    }
+  });
 
-tableBody.addEventListener("click", (event) => {
-  if (event.target.classList.contains("remove-item")) {
-    const id = event.target.dataset.id;
-    removeProductToCart(id);
-  }
-});
+  // Evento para alterar a quantidade diretamente na tabela
+  tableBody.addEventListener("input", function (event) {
+    if (event.target.classList.contains("input-quantify")) {
+      const id = event.target.getAttribute("data-id");
+      let newQuantity = parseInt(event.target.value, 10);
 
+      if (isNaN(newQuantity) || newQuantity < 1) newQuantity = 1;
+
+      const cart = getProductsFromCart();
+      const product = cart.find((product) => product.id === id);
+
+      if (product) {
+        product.quantity = newQuantity;
+        saveCartToLocalStorage(cart);
+        updateCartAndTable();
+      }
+    }
+  });
+}
+
+/* Função para remover produto do carrinho com base no ID */
 function removeProductToCart(id) {
   const products = getProductsFromCart();
   /* Filtra os  produtos sem o id do parâmetro*/
@@ -116,24 +151,7 @@ function removeProductToCart(id) {
   updateCartAndTable();
 }
 
-tableBody.addEventListener("input", function (event) {
-  if (event.target.classList.contains("input-quantify")) {
-    const id = event.target.getAttribute("data-id");
-    let newQuantity = parseInt(event.target.value, 10);
-
-    if (isNaN(newQuantity) || newQuantity < 1) newQuantity = 1;
-
-    const cart = getProductsFromCart();
-    const product = cart.find((product) => product.id === id);
-
-    if (product) {
-      product.quantity = newQuantity;
-      saveCartToLocalStorage(cart);
-      updateCartAndTable();
-    }
-  }
-});
-
+/* Função para atualizar o valor total do carrinho */
 function updateTotalCart() {
   const cart = getProductsFromCart();
 
@@ -143,17 +161,19 @@ function updateTotalCart() {
     total += product.price * product.quantity || 1;
   });
 
-  const totalSpan = document.getElementById("total-price");
+  const totalSpan = document.getElementById("total-cart");
 
   if (totalSpan) {
     totalSpan.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
   }
 }
 
+/* Função principal que atualiza contador, tabela e total */
 function updateCartAndTable() {
   updateCartCount();
   renderTableFromCart();
   updateTotalCart();
 }
 
+/* Executa a atualização inicial ao carregar a página */
 updateCartAndTable();
