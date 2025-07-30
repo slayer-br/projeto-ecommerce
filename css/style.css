@@ -413,6 +413,13 @@ td .remove-item {
   font-weight: 400;
 }
 
+.error-zip {
+  color: #ff4d4d;
+  margin-top: 0.4rem;
+  font-size: 1.4rem;
+  display: none;
+}
+
 .calculate-shipping {
   padding: 0.8rem 2rem;
   border: 1px solid var(--light-green-color);
@@ -443,7 +450,7 @@ td .remove-item {
 .order-subtotal,
 .shipping-cost {
   color: #e0e0e0;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
