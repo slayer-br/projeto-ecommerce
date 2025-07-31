@@ -12,12 +12,12 @@ updateCartAndTable();
 const btnAddToCart = document.querySelectorAll(".add-to-cart");
 btnAddToCart.forEach((button) => {
   button.addEventListener("click", (event) => {
-    const elementProduct = event.target.closest(".product"); // Seleciona o elemento pai com a classe 'product'
-    const productId = elementProduct.dataset.id; // Obtém o ID do produto via atributo data-id
-    const productName = elementProduct.querySelector(".name").textContent; // Obtém o nome do produto
-    const productImage = elementProduct.querySelector("img").getAttribute("src"); // Obtém a URL da imagem do produto
+    const elementProduct = event.target.closest(".product");
+    const productId = elementProduct.dataset.id;
+    const productName = elementProduct.querySelector(".name").textContent;
+    const productImage = elementProduct.querySelector("img").getAttribute("src");
     const productPrice = parseFloat(
-      elementProduct.querySelector(".price").textContent.replace("R$ ", "").replace(".", "").replace(",", ".") // Converte o texto do preço para número
+      elementProduct.querySelector(".price").textContent.replace("R$ ", "").replace(".", "").replace(",", ".")
     );
 
     const cart = getProductsFromCart(); // recupera os produtos salvos no carrinho
@@ -26,7 +26,7 @@ btnAddToCart.forEach((button) => {
     if (existProductInCart) {
       existProductInCart.quantity += 1;
     } else {
-      cart.push({ productId, productName, productImage, productPrice, quantity: 1 });
+      cart.push({ id: productId, name: productName, image: productImage, price: productPrice, quantity: 1 });
     }
 
     saveCartToLocalStorage(cart); // Salva o carrinho no localStorage
@@ -93,11 +93,11 @@ btnCalculateShipping.addEventListener("click", async () => {
   }
 
   const valueShipping = await calculateShipping(zip, btnCalculateShipping);
-  
+
   if (valueShipping === null) {
-  alert("Erro ao calcular o frete. Tente novamente.");
-  return;
-}
+    alert("Erro ao calcular o frete. Tente novamente.");
+    return;
+  }
 
   const formattedValue = valueShipping.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -105,12 +105,19 @@ btnCalculateShipping.addEventListener("click", async () => {
   document.querySelector("#shipping-cost").style.display = "flex";
 
   const totalCart = document.querySelector("#total-cart");
-  const valueTotalCart = parseFloat(
-    totalCart.textContent.replace("Total: R$ ", "").replace(".", ",").replace(",", ".")
+
+  const rawShipping =
+    typeof valueShipping === "string" ? parseFloat(valueShipping.replaceAll(".", "").replace(",", ".")) : valueShipping;
+
+    const valueTotalCart = parseFloat(
+    totalCart.textContent
+      .replace(/[^\d,]/g, "")
+      .replace(/\./g, "")
+      .replace(",", ".")
   );
 
-  const totalIncludingShipping = valueTotalCart + valueShipping;
+  const totalIncludingShipping = valueTotalCart + rawShipping;
   const formattedTotal = totalIncludingShipping.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-  totalCart.textContent = `Total: R$ ${formattedTotal}`;
+  totalCart.textContent = `Total: ${formattedTotal}`;
 });

@@ -445,6 +445,8 @@ td .remove-item {
   gap: 0.8rem;
   margin-top: 1.6rem;
   font-size: 1.6rem;
+  text-align: right;
+
 }
 
 .order-subtotal,
@@ -556,6 +558,7 @@ td .remove-item {
     font-weight: 300;
     color: var(--light-neutral-color);
   }
+  
   .total {
     align-items: flex-end;
   }
@@ -563,6 +566,10 @@ td .remove-item {
   .total-price {
     text-align: right;
   }
+
+.total-cart {
+  padding: 1.6rem 0;
+}
 
   .checkout {
     width: 370px;
