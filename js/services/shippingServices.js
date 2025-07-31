@@ -1,5 +1,7 @@
 import { getProductsFromCart } from "./cartServices.js";
 export async function calculateShipping(zip, btnCalculateShipping) {
+  hideShippingInfo();
+
   btnCalculateShipping.disabled = true;
   const originalTextCalculateShippingBtn = btnCalculateShipping.textContent;
   btnCalculateShipping.textContent = "Calculando frete...";
@@ -42,4 +44,15 @@ export async function calculateShipping(zip, btnCalculateShipping) {
     btnCalculateShipping.disabled = false;
     btnCalculateShipping.textContent = originalTextCalculateShippingBtn;
   }
+}
+
+export function hideShippingInfo() {
+  const shippingSection = document.querySelector("#shipping-cost");
+  const shippingValue = document.querySelector("#shipping-cost .value");
+
+  if (shippingSection) shippingSection.style.display = "none";
+  if (shippingValue) shippingValue.textContent = "";
+
+  const event = new CustomEvent("shippingCleared");
+  window.dispatchEvent(event);
 }

@@ -1,10 +1,11 @@
+import { hideShippingInfo } from "./shippingServices.js";
 export function saveCartToLocalStorage(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function getProductsFromCart() {
-  const products = localStorage.getItem("cart"); // Acessa o conteúdo salvo no carrinho
-  return products ? JSON.parse(products) : []; // Converte para objeto ou retorna array vazio
+  const products = localStorage.getItem("cart"); 
+  return products ? JSON.parse(products) : []; 
 }
 
 function updateCartCount() {
@@ -21,7 +22,7 @@ function updateCartCount() {
   }
 }
 
-/* Função para renderiza os produtos para a Tabela do modal */
+
 function renderTableFromCart() {
   const products = getProductsFromCart();
   const tableBody = document.querySelector("#modal-1-content table tbody");
@@ -52,10 +53,12 @@ function renderTableFromCart() {
 export function removeProductToCart(id) {
   const cartUpdated = getProductsFromCart().filter((product) => product.id !== id);
   saveCartToLocalStorage(cartUpdated);
+  hideShippingInfo()
   updateCartAndTable();
 }
 
-function updateTotalCart() {
+export function updateTotalCart() {
+
   const cart = getProductsFromCart();
 
   const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
@@ -63,7 +66,10 @@ function updateTotalCart() {
   document.querySelector(".total-cart").textContent = `Total: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
 }
 
-/* Função principal que atualiza contador, tabela e total */
+window.addEventListener("shippingCleared", () => {
+  updateTotalCart(); // atualiza o total com subtotal apenas
+});
+
 export function updateCartAndTable() {
   updateCartCount();
   renderTableFromCart();

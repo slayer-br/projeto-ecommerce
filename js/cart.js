@@ -4,7 +4,7 @@ import {
   updateCartAndTable,
   removeProductToCart,
 } from "./services/cartServices.js";
-import { calculateShipping } from "./services/shippingServices.js";
+import { calculateShipping, hideShippingInfo } from "./services/shippingServices.js";
 import { validateZipCode } from "./utilities/utilities.js";
 
 updateCartAndTable();
@@ -20,7 +20,7 @@ btnAddToCart.forEach((button) => {
       elementProduct.querySelector(".price").textContent.replace("R$ ", "").replace(".", "").replace(",", ".")
     );
 
-    const cart = getProductsFromCart(); // recupera os produtos salvos no carrinho
+    const cart = getProductsFromCart();
     const existProductInCart = cart.find((item) => item.id === productId);
 
     if (existProductInCart) {
@@ -29,8 +29,8 @@ btnAddToCart.forEach((button) => {
       cart.push({ id: productId, name: productName, image: productImage, price: productPrice, quantity: 1 });
     }
 
-    saveCartToLocalStorage(cart); // Salva o carrinho no localStorage
-    updateCartAndTable(); // Atualiza contador, tabla e total do carrinho
+    saveCartToLocalStorage(cart);
+    updateCartAndTable();
   });
 });
 
@@ -45,7 +45,7 @@ if (tableBody) {
     }
   });
 
-  // Evento para alterar a quantidade diretamente na tabela
+  
   tableBody.addEventListener("input", (event) => {
     if (event.target.classList.contains("input-quantity")) {
       const id = event.target.dataset.id;
@@ -62,6 +62,9 @@ if (tableBody) {
       if (product && product.quantity !== newQuantity) {
         product.quantity = newQuantity;
         saveCartToLocalStorage(cart);
+        
+        hideShippingInfo()
+        
         updateCartAndTable();
       }
     }
@@ -71,7 +74,20 @@ if (tableBody) {
 const btnCalculateShipping = document.getElementById("calculate-shipping");
 const inputZip = document.getElementById("zip");
 
-/*  Validar CEP com enter */
+inputZip.addEventListener("input", ()=> {
+  hideShippingInfo()
+})
+
+inputZip.addEventListener("input", (event) => {
+  let value = event.target.value.replace(/\D/g, "");
+
+  if (value.length > 5) {
+    value = value.slice(0, 5) + "-" + value.slice(5, 8);
+  }
+
+  event.target.value = value.slice(0, 9);
+});
+
 inputZip.addEventListener("keydown", ({ key }) => {
   if (key === "Enter") {
     btnCalculateShipping.click();
@@ -79,9 +95,8 @@ inputZip.addEventListener("keydown", ({ key }) => {
 });
 
 btnCalculateShipping.addEventListener("click", async () => {
-  const zip = inputZip.value.trim();
+  const zip = inputZip.value.trim().replace(/\D/g, "");
 
-  /* Validação do CEP */
   const errorZip = document.querySelector(".error-zip");
 
   if (!validateZipCode(zip)) {
@@ -109,7 +124,7 @@ btnCalculateShipping.addEventListener("click", async () => {
   const rawShipping =
     typeof valueShipping === "string" ? parseFloat(valueShipping.replaceAll(".", "").replace(",", ".")) : valueShipping;
 
-    const valueTotalCart = parseFloat(
+  const valueTotalCart = parseFloat(
     totalCart.textContent
       .replace(/[^\d,]/g, "")
       .replace(/\./g, "")
