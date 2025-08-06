@@ -4,6 +4,14 @@ O **E-commerce Master** é uma loja virtual fictícia desenvolvida com HTML, CSS
 
 ---
 
+## 📸 Screenshots
+
+| 📱 Versão Mobile | 💻 Versão Desktop |
+|------------------|-------------------|
+| ![Mobile](./assets/images/e-commerce-master-mobile.gif) | ![Desktop](./assets/images/e-commerce-master-desktop.gif) |
+
+---
+
 ## ⚛️ Como Rodar o Projeto
 
 1. Clone o repositório:
