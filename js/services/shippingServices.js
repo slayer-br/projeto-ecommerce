@@ -10,7 +10,7 @@ export async function calculateShipping(zip, btnCalculateShipping) {
 
   try {
     /* Busca as medidas dos produtos do arquivo JSON */
-    const measuresResponse = await fetch("/js/measures-products.json");
+    const measuresResponse = await fetch("./js/measures-products.json");
     const measures = await measuresResponse.json();
 
     /* Monta array de produtos do carrinho com as medidas corretas */
